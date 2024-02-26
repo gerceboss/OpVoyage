@@ -17,7 +17,6 @@ exports.latestBlock = catchAsync(async (req, res) => {
       apiKey: process.env.api_key,
     }
   );
-
   console.log(data);
 
   //send data
@@ -25,4 +24,18 @@ exports.latestBlock = catchAsync(async (req, res) => {
     status: "success",
     data,
   });
+});
+
+exports.latestBlockByNumber = catchAsync(async (req, res, next) => {
+  sdk.ethGetBlockByNumber(
+    {
+      id: 1,
+      jsonrpc: "2.0",
+      method: "eth_getBlockByNumber",
+      params: [""],
+    },
+    {
+      apiKey: process.env.api_key,
+    }
+  );
 });
