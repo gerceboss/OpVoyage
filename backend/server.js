@@ -29,7 +29,7 @@ app.use(cors());
 app.use("/api/blocks", blockRouter);
 app.use("/api/txs", txRouter);
 
-const port = process.env.PORT || 3000;
+const port = 5000;
 
 app.listen(port, () => {
   console.log(`listening to the port ${port}`);
