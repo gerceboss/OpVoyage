@@ -3,8 +3,6 @@ const appError = require("../utils/appError");
 const dotenv = require("dotenv");
 dotenv.config("./config.env");
 
-// const sdk = require("api")("@nodereal/v1.5#16x3shfl8iv4sjl");
-
 exports.displayCode = catchAsync(async (req, res) => {
   const options = {
     method: "POST",

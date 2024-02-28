@@ -48,15 +48,26 @@ exports.saveTxs = catchAsync(async (txs) => {
       },
       body: JSON.stringify({
         method: "eth_getTransactionReceipt",
-        params: [txs[i]],
+        params: [`${txs[i]}`],
         id: 1,
         jsonrpc: "2.0",
       }),
     };
     const response = await fetch(apiURL, options);
-    const tx = (await response.json()).result;
+    let txReceipt = await response.json();
+    txReceipt = txReceipt.result;
+
     //modify the body according to the data required;
-    const txFinal = await Transaction.create({ tx });
-    return "success";
+    const txFinal = await Transaction.create({
+      blockHash: txReceipt.blockHash,
+      blockNumber: txReceipt.blockNumber,
+      transactionIndex: txReceipt.transactionIndex,
+      transactionHash: txReceipt.transactionHash,
+      from: txReceipt.from,
+      to: txReceipt.to,
+      gasUsed: txReceipt.gasUsed,
+      contractAddress: txReceipt.contractAddress,
+    });
   }
+  return "success";
 });

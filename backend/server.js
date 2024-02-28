@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 const blockRouter = require("./routes/blockRouter");
@@ -15,8 +16,7 @@ const DB = process.env.DATABASE.replace(
 mongoose
   .connect(DB, {
     useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
+    useUnifiedTopology: true,
   })
   .then(() => console.log("DB connection successful!"));
 
