@@ -6,5 +6,6 @@ const txController = require("./../controllers/txController");
 // router.get("/latest", txController.latestTx);
 router.get("/all", txController.getAllTxs);
 router.get("/:txhash", txController.getTxByHash);
+router.get("/block/:txhash", txController.getBlockByTxHash);
 
 module.exports = router;

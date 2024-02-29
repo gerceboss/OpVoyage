@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
 const txSchema = mongoose.Schema({
   // 32 Bytes - hash of the block where this log was in. null when its pending. null when its pending log
@@ -32,7 +33,6 @@ const txSchema = mongoose.Schema({
   // string
   // The total amount of gas used when this transaction was executed in the block.
 
-
   // The amount of gas used by this specific transaction alone
   gasUsed: {
     type: Number,
@@ -42,6 +42,8 @@ const txSchema = mongoose.Schema({
   contractAddress: {
     type: String || null,
   },
+
+  block: { type: Schema.Types.ObjectId, ref: "Block" },
   // logs
   // array of objects
   // Array of log objects, which this transaction generated

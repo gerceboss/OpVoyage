@@ -1,12 +1,14 @@
 //tasks
-// 1. fetch latest block and store in db with timestamp and all details you can get done
-// 2. make a function to retrive a block using blocknumber done
-// 3. make a function to get all the blocks in db done
+// 1. fetch latest block and store in db with timestamp and all details you can get ->done
+// 2. make a function to retrive a block using blocknumber ->done
+// 3. make a function to get all the blocks in db ->done
 // 4. make a function to fetch latest 5-6 blocks
-// 5. make a pre function in the block model to get all the tx hashes in a block and their details //as they will be virtual ref in the model
-// 6. error handling like if block is not fetched or some tx is still pending
+// 5. make a pre function in the block model to get all the tx hashes in a block and their details //as they will be virtual ref in the model 
+// -> 5 done in {{txController:78}} not in the block model 
+// 6. error handling like if block is not fetched or some tx is still pending ->done
 
 // think abt how to handle so much data, either for cachinh and retreival of the lates ones u need to have some other model and update that with time
+// we could delete and then store new blocks and txs (scam)
 const catchAsync = require("../utils/catchAsync");
 const appError = require("../utils/appError");
 const dotenv = require("dotenv");
