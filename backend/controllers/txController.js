@@ -22,7 +22,7 @@ exports.getTxByHash = catchAsync(async (req, res, next) => {
       data: transaction,
     });
   } else {
-    return appError("No such transaction found!", 404);
+    return new appError("No such transaction found!", 404);
   }
 });
 
@@ -34,7 +34,7 @@ exports.getAllTxs = catchAsync(async (req, res, next) => {
       data: transactions,
     });
   } else {
-    return appError("No transaction exists in the db", 404);
+    return new appError("No transaction exists in the db", 404);
   }
 });
 
@@ -54,6 +54,9 @@ exports.saveTxs = catchAsync(async (txs) => {
       }),
     };
     const response = await fetch(apiURL, options);
+    if (!response) {
+      return new appError("error fetching the transaction", 404);
+    }
     let txReceipt = await response.json();
     txReceipt = txReceipt.result;
 

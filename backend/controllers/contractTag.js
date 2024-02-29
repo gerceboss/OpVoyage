@@ -19,6 +19,10 @@ exports.displayCode = catchAsync(async (req, res) => {
     "https://opbnb-mainnet.nodereal.io/v1/8947c5b257744b50848842f1e4c4cd1c",
     options
   );
+
+  if (!response) {
+    return new appError("error fetching the code of the contract", 404);
+  }
   const code = await response.json();
   console.log(code);
   res.status(200).json({

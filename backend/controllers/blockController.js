@@ -1,7 +1,7 @@
 //tasks
-// 1. fetch latest block and store in db with timestamp and all details you can get
-// 2. make a function to retrive a block using blocknumber
-// 3. make a function to get all the blocks in db
+// 1. fetch latest block and store in db with timestamp and all details you can get done
+// 2. make a function to retrive a block using blocknumber done
+// 3. make a function to get all the blocks in db done
 // 4. make a function to fetch latest 5-6 blocks
 // 5. make a pre function in the block model to get all the tx hashes in a block and their details //as they will be virtual ref in the model
 // 6. error handling like if block is not fetched or some tx is still pending
@@ -25,6 +25,9 @@ exports.latestBlock = catchAsync(async (req, res) => {
   };
 
   const response = await fetch(apiURL, options1);
+  if (!response) {
+    return (new appError("error fetching the latest block number", 404));
+  }
   const blockData = await response.json();
   const blockNumber = blockData.result;
 
@@ -40,6 +43,9 @@ exports.latestBlock = catchAsync(async (req, res) => {
   };
 
   const resp = await fetch(apiURL, options2);
+  if (!resp) {
+    return (new appError("error fetching the latest block", 404));
+  }
   let block = await resp.json();
   block = block.result;
 
@@ -72,6 +78,11 @@ exports.latestBlock = catchAsync(async (req, res) => {
 exports.latestBlockByNumber = catchAsync(async (req, res, next) => {
   const blockNumber = req.params.num;
   const block = await Block.findOne({ number: blockNumber });
+  if (!block) {
+    return (
+      new appError("error fetching the block from the database", 404)
+    );
+  }
   res.status(200).json({
     status: "success",
     data: block,
@@ -81,13 +92,13 @@ exports.latestBlockByNumber = catchAsync(async (req, res, next) => {
 //3
 exports.getAllBlocks = catchAsync(async (req, res, next) => {
   const blocks = await Block.find({});
-  //remember to show blocks in the frintend as per their timestamp
+  //remember to show blocks in the frontend as per their timestamp
   if (blocks) {
     res.status(200).json({
       status: "success",
       data: blocks,
     });
   } else {
-    return appError("no blocks found", 404);
+    return (new appError("no blocks found", 404));
   }
 });
