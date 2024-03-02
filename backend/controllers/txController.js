@@ -88,7 +88,7 @@ exports.getTxByBlockNumber = catchAsync(async (req, res, next) => {
 
   const transaction = await Transaction.find({
     blockNumber: bn,
-  });
+  }).populate("block");
   if (transaction) {
     res.status(200).json({
       status: "sucess",
