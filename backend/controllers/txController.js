@@ -9,7 +9,7 @@ const Block = require("../models/blockModel");
 const appError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
 const dotenv = require("dotenv");
-dotenv.config("./config.env");
+dotenv.config({ path: "./config.env" });
 const apiURL = process.env.API;
 //1 ?? dunno how to do //can track new pending transaction instead of new successful one
 //2

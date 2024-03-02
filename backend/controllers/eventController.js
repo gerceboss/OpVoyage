@@ -11,7 +11,7 @@ exports.latestBlockEvent = catchAsync(async (req, res, next) => {
   res.writeHead(200, headers);
   // real time data
   setInterval(async () => {
-    const resp = await axios.get("http://localhost:5000/api/blocks/latestFive");
+    const resp = await axios.get("http://localhost:5000/api/blocks/latest");
     const data = await resp.data;
     console.log(data);
     res.write(`data:${JSON.stringify(data)}`);

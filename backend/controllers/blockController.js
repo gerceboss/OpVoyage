@@ -14,7 +14,7 @@ const appError = require("../utils/appError");
 const dotenv = require("dotenv");
 const Block = require("./../models/blockModel");
 const txController = require("./txController");
-dotenv.config("./config.env");
+dotenv.config({ path: "./config.env" });
 const apiURL = process.env.API;
 
 // 1
@@ -105,13 +105,13 @@ exports.getAllBlocks = catchAsync(async (req, res, next) => {
 
 exports.getLatestFive = catchAsync(async (req, res, next) => {
   const blocks = await Block.find({}).sort({ timestamp: -1 });
-  if (!blocks){
+  if (!blocks) {
     return new appError("no blocks found", 404);
   }
-  const minblocks = blocks.length > 5?5:blocks.length;
+  const minblocks = blocks.length > 5 ? 5 : blocks.length;
 
-  const latestFiveBlocks=[];
-  for (let i = 0;i<minblocks;i++){
+  const latestFiveBlocks = [];
+  for (let i = 0; i < minblocks; i++) {
     latestFiveBlocks.push(blocks[i]);
   }
   res.status(200).json({
