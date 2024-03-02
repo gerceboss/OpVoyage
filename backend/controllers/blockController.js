@@ -102,3 +102,20 @@ exports.getAllBlocks = catchAsync(async (req, res, next) => {
     return new appError("no blocks found", 404);
   }
 });
+
+exports.getLatestFive = catchAsync(async (req, res, next) => {
+  const blocks = await Block.find({}).sort({ timestamp: -1 });
+  if (!blocks){
+    return new appError("no blocks found", 404);
+  }
+  const minblocks = blocks.length > 5?5:blocks.length;
+
+  const latestFiveBlocks=[];
+  for (let i = 0;i<minblocks;i++){
+    latestFiveBlocks.push(blocks[i]);
+  }
+  res.status(200).json({
+    status: "success",
+    data: latestFiveBlocks,
+  });
+});
