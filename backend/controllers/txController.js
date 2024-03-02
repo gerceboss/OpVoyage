@@ -63,11 +63,15 @@ exports.saveTxs = catchAsync(async (txs) => {
     let blockNum = txReceipt.blockNumber;
     let block = await Block.findOne({ number: blockNum });
 
+    const blocnumhex = txReceipt.blockNumber;
+    const blocnum = parseInt(blocnumhex, 16);
+    const txindhex = txReceipt.transactionIndex;
+    const txind = parseInt(txindhex, 16);
     //modify the body according to the data required;
     const txFinal = await Transaction.create({
       blockHash: txReceipt.blockHash,
-      blockNumber: txReceipt.blockNumber,
-      transactionIndex: txReceipt.transactionIndex,
+      blockNumber: blocnum,
+      transactionIndex: txind,
       transactionHash: txReceipt.transactionHash,
       from: txReceipt.from,
       to: txReceipt.to,
@@ -80,8 +84,10 @@ exports.saveTxs = catchAsync(async (txs) => {
 });
 
 exports.getTxByBlockNumber = catchAsync(async (req, res, next) => {
+  const bn = req.params.num;
+
   const transaction = await Transaction.find({
-    blockNumber: req.params.blockNumber,
+    blockNumber: bn,
   });
   if (transaction) {
     res.status(200).json({

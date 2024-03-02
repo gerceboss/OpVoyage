@@ -53,12 +53,8 @@ const blockSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  gotAt: {
-    type: Date,
-    default: Date.now(),
-  },
   timestamp: {
-    type: Date,
+    type: Number,
     required: true,
   },
   number: {
@@ -77,6 +73,11 @@ const blockSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  chain_id:{
+    type: Number,
+    required: true,
+    default: 1
+  }
 });
 
 const Block = mongoose.model("Block", blockSchema);

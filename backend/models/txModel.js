@@ -8,11 +8,11 @@ const txSchema = mongoose.Schema({
   },
   // The block number where this log was in. null when its pending. null when its pending log.
   blockNumber: {
-    type: String || null, //can be null //change it to integer???
+    type: Number || null, //can be null //change it to integer???
   },
   // Integer of the transactions index position log was created from. null when its pending log.
   transactionIndex: {
-    type: String || null,
+    type: Number || null,
   },
   // 32 Bytes - hash of the transaction
   transactionHash: {

@@ -3,8 +3,8 @@
 // 2. make a function to retrive a block using blocknumber ->done
 // 3. make a function to get all the blocks in db ->done
 // 4. make a function to fetch latest 5-6 blocks
-// 5. make a pre function in the block model to get all the tx hashes in a block and their details //as they will be virtual ref in the model 
-// -> 5 done in {{txController:78}} not in the block model 
+// 5. make a pre function in the block model to get all the tx hashes in a block and their details //as they will be virtual ref in the model
+// -> 5 done in {{txController:78}} not in the block model
 // 6. error handling like if block is not fetched or some tx is still pending ->done
 
 // think abt how to handle so much data, either for cachinh and retreival of the lates ones u need to have some other model and update that with time
@@ -28,7 +28,7 @@ exports.latestBlock = catchAsync(async (req, res) => {
 
   const response = await fetch(apiURL, options1);
   if (!response) {
-    return (new appError("error fetching the latest block number", 404));
+    return new appError("error fetching the latest block number", 404);
   }
   const blockData = await response.json();
   const blockNumber = blockData.result;
@@ -46,7 +46,7 @@ exports.latestBlock = catchAsync(async (req, res) => {
 
   const resp = await fetch(apiURL, options2);
   if (!resp) {
-    return (new appError("error fetching the latest block", 404));
+    return new appError("error fetching the latest block", 404);
   }
   let block = await resp.json();
   block = block.result;
@@ -81,9 +81,7 @@ exports.latestBlockByNumber = catchAsync(async (req, res, next) => {
   const blockNumber = req.params.num;
   const block = await Block.findOne({ number: blockNumber });
   if (!block) {
-    return (
-      new appError("error fetching the block from the database", 404)
-    );
+    return new appError("error fetching the block from the database", 404);
   }
   res.status(200).json({
     status: "success",
@@ -101,6 +99,6 @@ exports.getAllBlocks = catchAsync(async (req, res, next) => {
       data: blocks,
     });
   } else {
-    return (new appError("no blocks found", 404));
+    return new appError("no blocks found", 404);
   }
 });
