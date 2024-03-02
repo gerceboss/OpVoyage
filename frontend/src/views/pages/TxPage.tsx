@@ -36,7 +36,7 @@ import { setCacheHeader } from "@/utils/header";
 
 interface ITxPageProps {
   tx: IDetailedTransaction | null;
-  tags: ITag[] | null;
+  // tags: ITag[] | null;
 }
 
 export const getServerSideProps = (async (
@@ -48,26 +48,25 @@ export const getServerSideProps = (async (
   const { hash: h } = context.params as { hash: string };
   const hash = String(h);
   const tx = await getTx(hash);
-  const tags = tx
-    ? await getTags([tx.to_address, ...tx.closest_address])
-    : null;
+  // const tags = tx ? await getTags([tx.to,]) : null;
 
   return {
     props: {
       tx,
-      tags,
+      //tags,
     },
   };
 }) satisfies GetServerSideProps<ITxPageProps>;
 
-export const TxPage = ({ tx, tags }: ITxPageProps) => {
+export const TxPage = ({ tx }: ITxPageProps) => {
+  //add , tags in future
   const chain = getChain(tx?.chain_id);
 
   return (
     <>
       <AppHeader
         title={
-          !tx ? "Block not found" : `${chain?.name} Tx ${tx?.transaction_hash}`
+          !tx ? "Block not found" : `${chain?.name} Tx ${tx?.transactionHash}`
         }
       />
       <Section>
@@ -77,15 +76,15 @@ export const TxPage = ({ tx, tags }: ITxPageProps) => {
           (() => {
             const [isFormatted, setIsFormatted] = useState(false);
             const [, parsed] = useMemo(() => {
-              if (!tx.input || !tx.function_name)
-                return [undefined, undefined] as const;
+              // if (!tx.input || !tx.function_name)
+              //   return [undefined, undefined] as const;
               try {
                 const abi = parseAbi([
                   `function ${tx.function_name}` as string,
                 ]) as any[];
                 const result = decodeFunctionData({
                   abi,
-                  data: tx.input,
+                  data: `0x${tx.input}`,
                 }) as { args: any[]; functionName: string };
                 return [abi, result] as const;
               } catch (e) {
@@ -100,7 +99,7 @@ export const TxPage = ({ tx, tags }: ITxPageProps) => {
               }
             }, [parsed]);
 
-            const externalExplorerUrl = `${chain.blockExplorers.default.url}/tx/${tx.transaction_hash}`;
+            const externalExplorerUrl = `${chain.blockExplorers.default.url}/tx/${tx.transactionHash}`;
 
             return (
               <>
@@ -118,7 +117,7 @@ export const TxPage = ({ tx, tags }: ITxPageProps) => {
                       </HStack>
                     }
                   />
-                  <SectionItem
+                  {/* <SectionItem
                     title="Tags"
                     value={
                       <TagsBadge
@@ -126,15 +125,15 @@ export const TxPage = ({ tx, tags }: ITxPageProps) => {
                         fallback={<Badge>Unknown</Badge>}
                       />
                     }
-                  />
-                  <SectionItem
+                  /> */}
+                  {/* <SectionItem
                     title="Status"
                     value={
                       <Badge colorScheme={tx.error ? "red" : "green"}>
                         {tx.error || "Success"}
                       </Badge>
                     }
-                  />
+                  /> */}
                   <SectionItem
                     title="Block Height"
                     value={
@@ -155,7 +154,7 @@ export const TxPage = ({ tx, tags }: ITxPageProps) => {
                     title="Transaction Hash"
                     value={
                       <HexHighlightBadge isFull wrap>
-                        {tx.transaction_hash}
+                        {tx.transactionHash}
                       </HexHighlightBadge>
                     }
                   />
@@ -172,7 +171,7 @@ export const TxPage = ({ tx, tags }: ITxPageProps) => {
                     title="From"
                     value={
                       <HexHighlightBadge isFull wrap isAccount>
-                        {tx.from_address}
+                        {tx.from}
                       </HexHighlightBadge>
                     }
                   />
@@ -181,17 +180,15 @@ export const TxPage = ({ tx, tags }: ITxPageProps) => {
                     value={
                       <HStack>
                         <HexHighlightBadge isFull wrap isAccount>
-                          {tx.to_address}
+                          {tx.to}
                         </HexHighlightBadge>
-                        <TagsBadge
-                          tags={
-                            tags?.find((t) => t.address === tx.to_address)?.tags
-                          }
-                        />
+                        {/* <TagsBadge
+                          tags={tags?.find((t) => t.address === tx.to)?.tags}
+                        /> */}
                       </HStack>
                     }
                   />
-                  <SectionItem
+                  {/* <SectionItem
                     title="Related Contract"
                     tooltip="The contracts this transaction interacts with that are related to ZK/Recover"
                     align="start"
@@ -209,9 +206,9 @@ export const TxPage = ({ tx, tags }: ITxPageProps) => {
                         ))}
                       </Stack>
                     }
-                  />
+                  /> */}
                   <Divider my={4} />
-                  <SectionItem
+                  {/* <SectionItem
                     title="Value"
                     value={`${numbro(formatEther(tx.value)).format({
                       mantissa: 18,
@@ -219,15 +216,15 @@ export const TxPage = ({ tx, tags }: ITxPageProps) => {
                       trimMantissa: true,
                       thousandSeparated: true,
                     })} ${chain.nativeCurrency.symbol}`}
-                  />
+                  /> */}
                   <Divider my={4} />
                   <SectionItem
                     title="Gas Used"
-                    value={numbro(tx.gas_used_total).format({
+                    value={numbro(tx.gasUsed).format({
                       thousandSeparated: true,
                     })}
                   />
-                  <SectionItem
+                  {/* <SectionItem
                     title="Gas Used By ZK/Recover Contracts"
                     value={
                       <HStack>
@@ -237,16 +234,16 @@ export const TxPage = ({ tx, tags }: ITxPageProps) => {
                           })}
                         </Text>
                         <PercentageBadge
-                          value={tx.gas_used_first_degree / tx.gas_used_total}
+                          value={tx.gas_used_first_degree / tx.gasUsed}
                         />
-                        {tx.gas_used_first_degree > tx.gas_used_total && (
+                        {tx.gas_used_first_degree > tx.gasUsed && (
                           <Badge colorScheme="red">Some Calls Reverted</Badge>
                         )}
                       </HStack>
                     }
-                  />
+                  /> */}
                   <Divider my={4} />
-                  <SectionItem
+                  {/* <SectionItem
                     title="Type"
                     value={
                       <HStack>
@@ -297,17 +294,17 @@ export const TxPage = ({ tx, tags }: ITxPageProps) => {
                         }
                       />
                     </>
-                  )}
+                  )} */}
                 </Stack>
                 <Divider my={4} />
-                <SectionItem
+                {/* <SectionItem
                   title="Function"
                   value={
                     <HexHighlightBadge wrap>
                       {tx.function_name || tx.function_signature}
                     </HexHighlightBadge>
                   }
-                />
+                /> */}
                 <SectionItem
                   title="Input"
                   align="start"

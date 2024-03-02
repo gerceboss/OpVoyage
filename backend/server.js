@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 const blockRouter = require("./routes/blockRouter");
 const txRouter = require("./routes/txRouter");
-
+const eventRouter = require("./routes/eventRouter");
 dotenv.config({ path: "./config.env" });
 
 const DB = process.env.DATABASE.replace(
@@ -28,10 +28,9 @@ app.use(cors());
 
 app.use("/api/blocks", blockRouter);
 app.use("/api/txs", txRouter);
-
+app.use("/api/events", eventRouter);
 const port = 5000;
 
 app.listen(port, () => {
   console.log(`listening to the port ${port}`);
-  //
 });

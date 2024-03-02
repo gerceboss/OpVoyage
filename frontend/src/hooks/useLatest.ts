@@ -20,14 +20,15 @@ export const useLatest = ({
     if (initialBlocks !== undefined) {
       blockSse = getSseLatestBlocks();
       blockSse.onmessage = (event) => {
-        setBlocks(JSON.parse(event.data));
+        console.log(JSON.parse(event.data).data);
+        setBlocks(JSON.parse(event.data).data);
       };
     }
 
     if (initialTxs !== undefined) {
       txsSse = getSseLatestTxs();
       txsSse.onmessage = (event) => {
-        setTxs(JSON.parse(event.data));
+        setTxs(JSON.parse(event.data).data);
       };
     }
 

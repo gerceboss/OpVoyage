@@ -11,11 +11,14 @@ export interface ITransaction {
   gasUsed: number;
   contractAddress: string;
   block: IBlock;
+  chain_id: number;
 }
 
 export type IDetailedTransaction = ITransaction & {
   block_number: number;
   block_timestamp: number;
+  function_name:string;
+  input:string;
 };
 
 export type IBlockTransaction = ITransaction & {

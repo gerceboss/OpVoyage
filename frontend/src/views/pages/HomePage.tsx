@@ -131,7 +131,7 @@ export const HomePage = ({ allTags, txCount }: IHomePageProps) => {
                 <AnimatePresence>
                   {txs.slice(0, 10).map((tx, i) => (
                     <LatestTransactionCard
-                      key={tx.transaction_hash}
+                      key={tx.transactionHash}
                       index={i}
                       {...tx}
                     />

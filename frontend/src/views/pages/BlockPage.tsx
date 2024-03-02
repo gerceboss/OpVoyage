@@ -84,7 +84,7 @@ export const BlockPage = ({
     data: txs || [],
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getRowId: (row) => row.transaction_hash,
+    getRowId: (row) => row.transactionHash,
   });
 
   return (
@@ -127,7 +127,7 @@ export const BlockPage = ({
                     title="Parent Hash"
                     value={
                       <HexHighlightBadge isFull wrap>
-                        {block.parent_hash}
+                        {block.parentHash}
                       </HexHighlightBadge>
                     }
                   />
@@ -138,11 +138,6 @@ export const BlockPage = ({
                     ).fromNow()} | ${moment(block.timestamp * 1000).format()}`}
                   />
                   <SectionItem
-                    title="Size"
-                    value={`${block.size} Bytes`}
-                    tooltip="Size of the block in bytes"
-                  />
-                  <SectionItem
                     title="External Explorer"
                     value={
                       <Link isExternal href={externalExplorerUrl}>
@@ -150,7 +145,7 @@ export const BlockPage = ({
                       </Link>
                     }
                   />
-                  <SectionItem
+                  {/* <SectionItem
                     title="Transactions"
                     value={[
                       <WrapItem
@@ -181,26 +176,26 @@ export const BlockPage = ({
                         tooltip="Total transaction that uses EC recover"
                       />,
                     ]}
-                  />
+                  /> */}
                   <SectionItem
                     title="Gas"
                     value={[
                       <WrapItem
                         title="Gas Limit"
-                        value={numbro(block.gas_limit).format({
+                        value={numbro(block.gasLimit).format({
                           thousandSeparated: true,
                         })}
                         tooltip="Total gas limit of all transactions"
                       />,
                       <WrapItem
                         title="Gas Used"
-                        value={numbro(block.gas_used).format({
+                        value={numbro(block.gasUsed).format({
                           thousandSeparated: true,
                         })}
                         tooltip="Total gas used by all transactions"
                         suffix={
                           <PercentageBadge
-                            value={block.gas_used / block.gas_limit}
+                            value={block.gasUsed / block.gasLimit}
                           />
                         }
                       />,
@@ -212,7 +207,7 @@ export const BlockPage = ({
                         tooltip="Total gas used by all zk/aa transactions"
                         suffix={
                           <PercentageBadge
-                            value={totalTxsGas / block.gas_limit}
+                            value={totalTxsGas / block.gasLimit}
                           />
                         }
                       />,
@@ -224,7 +219,7 @@ export const BlockPage = ({
                         tooltip="Total gas used by all zk/aa contracts (excluding calls to unrelated contracts) in zk/aa transactions"
                         suffix={
                           <PercentageBadge
-                            value={totalTxsGasFirstDegree / block.gas_limit}
+                            value={totalTxsGasFirstDegree / block.gasLimit}
                           />
                         }
                       />,

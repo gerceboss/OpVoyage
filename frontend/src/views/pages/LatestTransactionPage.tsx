@@ -54,7 +54,7 @@ export const LatestTransactionPage = () => {
     data: txs,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getRowId: (row) => row.transaction_hash,
+    getRowId: (row) => row.transactionHash,
   });
 
   return (

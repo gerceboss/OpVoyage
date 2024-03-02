@@ -43,13 +43,8 @@ export const LatestBlocksPage = () => {
         header: "Hash",
         cell: (row) => <HexHighlightBadge>{row.getValue()}</HexHighlightBadge>,
       }),
-      columnHelper.accessor("transaction_count", {
-        header: "Txs",
-      }),
-      columnHelper.accessor("related_transaction_count", {
-        header: "Related Txs",
-      }),
-      columnHelper.accessor((r) => [r.gas_limit, r.gas_used] as const, {
+
+      columnHelper.accessor((r) => [r.gasLimit, r.gasUsed] as const, {
         header: "Gas Used",
         cell: (row) => {
           const [gasLimit, gasUsed] = row.getValue();
