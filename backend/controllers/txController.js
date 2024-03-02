@@ -115,3 +115,30 @@ exports.getBlockByTxHash = catchAsync(async (req, res, next) => {
     data: block,
   });
 });
+
+exports.getTxByAddress = catchAsync(async (req, res, next) => {
+  const transactions_from = await Transaction.find({
+    from: req.params.address,
+  });
+  const transactions_to = await Transaction.find({ to: req.params.address });
+  const transactions_contr = await Transaction.find({
+    contractAddress: req.params.address,
+  });
+  const transactions = [];
+  for (let i = 0; i < transactions_from.length; i++) {
+    transactions.push(transactions_from[i]);
+  }
+  for (let i = 0; i < transactions_to.length; i++) {
+    transactions.push(transactions_to[i]);
+  }
+  for (let i = 0; i < transactions_contr.length; i++) {
+    transactions.push(transactions_contr[i]);
+  }
+  if (!transactions) {
+    return new appError("no transactions found", 404);
+  }
+  res.status(200).json({
+    status: "success",
+    data: transactions,
+  });
+});
