@@ -25,14 +25,14 @@ export const LatestTransactionPage = () => {
         columnHelper.accessor((r) => [r.chain_id, r.block_number] as const, {
           header: "Chain/Block",
           cell: (row) => {
-            const [chainId, number] = row.getValue();
-            const chain = getChain(chainId);
+            // const [chainId, number] = row.getValue();
+            // const chain = getChain(chainId);
             return (
               <HStack>
-                <Image src={chain?.icon} boxSize={4} />
-                <HexHighlightBadge isBlock={chainId}>
+                {/* <Image src={chain?.icon} boxSize={4} /> */}
+                {/* <HexHighlightBadge isBlock={chainId}>
                   {number}
-                </HexHighlightBadge>
+                </HexHighlightBadge> */}
               </HStack>
             );
           },

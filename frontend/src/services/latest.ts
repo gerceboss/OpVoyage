@@ -3,23 +3,23 @@ import { ILatestTransaction } from "@/interfaces/transaction";
 import axios from "axios";
 
 export const getLatestBlocks = async (): Promise<ILatestBlock[]> => {
-  const url = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/latest/blocks`;
-  return await axios.get(url).then((res) => res.data.data);
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/api/blocks/latest`;
+  return await axios.get(url).then((res) => res.data);
 };
 
 export const getLatestTxs = async (): Promise<ILatestTransaction[]> => {
-  const url = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/latest/txs`;
-  return await axios.get(url).then((res) => res.data.data);
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/api/txs/latest`;
+  return await axios.get(url).then((res) => res.data);
 };
 
 export const getSseLatestBlocks = () => {
   return new EventSource(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/v1/latest/blocks/sse`
+    `${process.env.NEXT_PUBLIC_API_URL}/api/blocks/latest/sse`
   );
 };
 
 export const getSseLatestTxs = () => {
   return new EventSource(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/v1/latest/txs/sse`
+    `${process.env.NEXT_PUBLIC_API_URL}/api/txs/latest/sse`
   );
 };

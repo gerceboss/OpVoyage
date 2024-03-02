@@ -6,7 +6,7 @@ const dotenv = require("dotenv");
 const blockRouter = require("./routes/blockRouter");
 const txRouter = require("./routes/txRouter");
 
-dotenv.config({ path: "./config" });
+dotenv.config({ path: "./config.env" });
 
 const DB = process.env.DATABASE.replace(
   "<PASSWORD>",
