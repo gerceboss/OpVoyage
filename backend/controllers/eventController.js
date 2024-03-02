@@ -5,7 +5,7 @@ exports.latestBlockEvent = catchAsync(async (req, res, next) => {
   //write the headers
   const headers = {
     "Content-Type": "text/event-stream",
-    Connection: "keep-alive",
+    "Connection": "keep-alive",
     "Cache-Control": "no-cache",
   };
   res.writeHead(200, headers);
@@ -13,11 +13,12 @@ exports.latestBlockEvent = catchAsync(async (req, res, next) => {
   setInterval(async () => {
     const resp = await axios.get("http://localhost:5000/api/blocks/latestFive");
     const data = await resp.data;
+    console.log(data);
     res.write(`data:${JSON.stringify(data)}`);
   }, 2000);
 
   //close the connection on the request from the frontend
-  req.on("close", () => {
-    console.log(`Connection closed`);
-  });
+  //   req.on("close", () => {
+  //     console.log(`Connection closed`);
+  //   });
 });

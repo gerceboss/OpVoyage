@@ -17,6 +17,7 @@ import { HexHighlightBadge } from "@/components/Badge/HexHighlightBadge";
 export const LatestBlocksPage = () => {
   const { blocks } = useLatest({
     initialBlocks: [],
+    initialTxs: [],
   });
 
   const columns = useMemo(() => {

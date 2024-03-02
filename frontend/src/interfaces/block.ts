@@ -18,10 +18,18 @@ export interface IBlock {
 }
 
 export interface ILatestBlock {
-  chain_id: number;
-  number: number;
-  timestamp: number;
+  difficulty: number;
   hash: string;
-  gasLimit: number;
   gasUsed: number;
+  gasLimit: number;
+  transactions: string[];
+  transactionsRoot: string;
+  uncles: string[];
+  parentHash: string;
+  timestamp: number;
+  number: number;
+  nonce: number;
+  miner: string;
+  sha3Uncles: string;
+  chain_id: number;
 }

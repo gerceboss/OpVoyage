@@ -33,8 +33,8 @@ export const useLatest = ({
     }
 
     return () => {
-      blockSse?.close();
-      txsSse?.close();
+      // blockSse?.close();
+      // txsSse?.close();
     };
   }, []);
 
