@@ -15,7 +15,7 @@ export const Title = () => {
         }}
         pb={1}
       >
-        <chakra.span color="primary.400">evm</chakra.span>trace
+        <chakra.span color="primary.400">Op</chakra.span>Voyage
       </Text>
     </HStack>
   );

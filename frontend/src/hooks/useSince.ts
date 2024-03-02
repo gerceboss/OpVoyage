@@ -10,7 +10,7 @@ export const useSince = (inp?: MomentInput) => {
   useEffect(() => {
     const interval = setInterval(() => {
       setSince(calculateSince());
-    }, 1000);
+    }, 2000);
     return () => clearInterval(interval);
   }, []);
 

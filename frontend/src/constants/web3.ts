@@ -5,7 +5,14 @@ import { createWeb3Modal } from "@web3modal/wagmi";
 import { DESCRIPTION, TITLE } from "./texts";
 import theme from "@/themes";
 import { publicProvider } from "wagmi/providers/public";
-import { mainnet, arbitrum, optimism, base, scroll } from "viem/chains";
+import {
+  mainnet,
+  arbitrum,
+  optimism,
+  base,
+  scroll,
+  opBNBTestnet,
+} from "viem/chains";
 import { Address, Hex } from "viem";
 
 const metadata = {
@@ -16,6 +23,7 @@ const metadata = {
 };
 
 export const chains = [
+  { ...opBNBTestnet, icon: "./icons/opBNB.svg", color: "#756e6c" },
   { ...mainnet, icon: "/icons/ethereum.svg", color: "#756e6c" },
   { ...arbitrum, icon: "/icons/arbitrum.svg", color: "#9dcced" },
   { ...optimism, icon: "/icons/optimism.svg", color: "#ff0420" },

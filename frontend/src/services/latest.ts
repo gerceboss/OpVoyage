@@ -23,6 +23,6 @@ export const getSseLatestBlocks = () => {
 
 export const getSseLatestTxs = () => {
   return new EventSource(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/txs/latest/sse`
+    `${process.env.NEXT_PUBLIC_API_URL}/api/events/tx/latest`
   );
 };

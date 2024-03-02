@@ -28,7 +28,7 @@ export const LatestBlocksPage = () => {
         cell: (row) => {
           const chainId = row.getValue();
           const chain = getChain(chainId);
-          return <Image src={chain?.icon} boxSize={4} />;
+          return <Image src="../../icons/opBNB.svg" boxSize={4} />;
         },
       }),
       columnHelper.accessor((r) => [r.chain_id, r.number] as const, {

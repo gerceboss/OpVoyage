@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const Block = require("./../models/blockModel");
 const Transaction = require("./../models/txModel");
 const txController = require("./txController");
+const axios = require("axios");
 dotenv.config({ path: "./config.env" });
 const apiURL = process.env.API;
 exports.latestBlockEvent = catchAsync(async (req, res, next) => {
@@ -20,66 +21,70 @@ exports.latestBlockEvent = catchAsync(async (req, res, next) => {
   res.writeHead(200, headers);
 
   let data = [];
+
   setInterval(async () => {
-    const options1 = {
-      method: "POST",
-      headers: {
-        accept: "application/json",
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        id: 1,
-        jsonrpc: "2.0",
-        method: "eth_blockNumber",
-      }),
-    };
+    //yaha se niche ka tha
+    // const options1 = {
+    //   method: "POST",
+    //   headers: {
+    //     accept: "application/json",
+    //     "content-type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     id: 1,
+    //     jsonrpc: "2.0",
+    //     method: "eth_blockNumber",
+    //   }),
+    // };
 
-    const response = await fetch(apiURL, options1);
-    if (!response) {
-      return new appError("error fetching the latest block number", 404);
-    }
-    const blockData = await response.json();
-    const blockNumber = blockData.result;
+    // const response = await fetch(apiURL, options1);
+    // if (!response) {
+    //   return new appError("error fetching the latest block number", 404);
+    // }
+    // const blockData = await response.json();
+    // const blockNumber = blockData.result;
 
-    const options2 = {
-      method: "POST",
-      headers: {
-        accept: "application/json",
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        method: "eth_getBlockByNumber",
-        params: [blockNumber, false],
-        id: 1,
-        jsonrpc: "2.0",
-      }),
-    };
+    // const options2 = {
+    //   method: "POST",
+    //   headers: {
+    //     accept: "application/json",
+    //     "content-type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     method: "eth_getBlockByNumber",
+    //     params: [blockNumber, false],
+    //     id: 1,
+    //     jsonrpc: "2.0",
+    //   }),
+    // };
 
-    const resp = await fetch(apiURL, options2);
-    if (!resp) {
-      return new appError("error fetching the latest block", 404);
-    }
-    let block = await resp.json();
-    block = block.result;
-    data.push(block);
-    // console.log(data);
-    const txhashes = block.transactions;
-    // store in database
-    const blockfinal = await Block.create({
-      difficulty: block.difficulty,
-      number: block.number,
-      hash: block.hash,
-      gasUsed: block.gasUsed,
-      gasLimit: block.gasLimit,
-      transactions: block.transactions,
-      transactionsRoot: block.transactionsRoot,
-      uncles: block.uncles,
-      parentHash: block.parentHash,
-      sha3Uncles: block.sha3Uncles,
-      miner: block.miner,
-      nonce: block.miner,
-      timestamp: block.timestamp,
-    });
+    // const resp = await fetch(apiURL, options2);
+    // if (!resp) {
+    //   return new appError("error fetching the latest block", 404);
+    // }
+    // let block = await resp.json();
+    // block = block.result;
+    // data.push(block);
+    // // console.log(data);
+    // const txhashes = block.transactions;
+    // // store in database
+    // const blockfinal = await Block.create({
+    //   difficulty: block.difficulty,
+    //   number: block.number,
+    //   hash: block.hash,
+    //   gasUsed: block.gasUsed,
+    //   gasLimit: block.gasLimit,
+    //   transactions: block.transactions,
+    //   transactionsRoot: block.transactionsRoot,
+    //   uncles: block.uncles,
+    //   parentHash: block.parentHash,
+    //   sha3Uncles: block.sha3Uncles,
+    //   miner: block.miner,
+    //   nonce: block.miner,
+    //   timestamp: block.timestamp,
+    // });
+    //yaha se upar ka tha
+
     // const txs = txhashes;
     // // const blockfinal = await Block.create({ block });
     // for (let i in txs) {
@@ -123,10 +128,15 @@ exports.latestBlockEvent = catchAsync(async (req, res, next) => {
     //     block: block,
     //   });
     // }
+
+    //naya
+    let resp = await axios.get("http://localhost:5000/api/blocks/latest");
+    //   console.log(resp.data.data);
+    data.push(resp.data.data);
     const obj = {
       data: data,
     };
     // console.log(data);
     res.write(`data:${JSON.stringify(obj)}\n\n`);
-  }, 2000);
+  }, 5000);
 });

@@ -73,11 +73,11 @@ const blockSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  chain_id:{
+  chain_id: {
     type: Number,
     required: true,
-    default: 1
-  }
+    default: 5611,
+  },
 });
 
 const Block = mongoose.model("Block", blockSchema);
