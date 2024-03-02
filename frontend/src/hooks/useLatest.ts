@@ -16,9 +16,9 @@ export const useLatest = ({
   useEffect(() => {
     let blockSse: EventSource | null = null;
     let txsSse: EventSource | null = null;
-
     if (initialBlocks !== undefined) {
       blockSse = getSseLatestBlocks();
+      console.log(blockSse, txsSse);
       blockSse.onmessage = (event) => {
         console.log(JSON.parse(event.data).data);
         setBlocks(JSON.parse(event.data).data);
