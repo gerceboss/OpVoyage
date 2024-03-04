@@ -5,7 +5,7 @@ import { MainLogo } from "./MainLogo";
 export const Title = () => {
   return (
     <HStack as={Link} href="/" spacing={1} align="center">
-      <MainLogo boxSize={6} />
+      {/* <MainLogo boxSize={6} /> */}
       <Text
         fontSize="2xl"
         fontWeight="extrabold"

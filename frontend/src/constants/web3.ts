@@ -23,12 +23,12 @@ const metadata = {
 };
 
 export const chains = [
-  { ...opBNBTestnet, icon: "./icons/opBNB.svg", color: "#756e6c" },
-  { ...mainnet, icon: "/icons/ethereum.svg", color: "#756e6c" },
-  { ...arbitrum, icon: "/icons/arbitrum.svg", color: "#9dcced" },
-  { ...optimism, icon: "/icons/optimism.svg", color: "#ff0420" },
-  { ...base, icon: "/icons/base.svg", color: "#2565eb" },
-  { ...scroll, icon: "/icons/scroll.svg", color: "#ffeeda" },
+  { ...opBNBTestnet, icon: "/icons/opBNB.svg", color: "#756e6c" },
+  // { ...mainnet, icon: "/icons/ethereum.svg", color: "#756e6c" },
+  // { ...arbitrum, icon: "/icons/arbitrum.svg", color: "#9dcced" },
+  // { ...optimism, icon: "/icons/optimism.svg", color: "#ff0420" },
+  // { ...base, icon: "/icons/base.svg", color: "#2565eb" },
+  // { ...scroll, icon: "/icons/scroll.svg", color: "#ffeeda" },
 ];
 
 export const getChain = (chainId?: number) => {
@@ -37,10 +37,10 @@ export const getChain = (chainId?: number) => {
 
 const { publicClient } = configureChains(chains, [
   publicProvider(),
-  publicProvider(),
-  publicProvider(),
-  publicProvider(),
-  publicProvider(),
+  // publicProvider(),
+  // publicProvider(),
+  // publicProvider(),
+  // publicProvider(),
 ]);
 
 export const wagmiConfig = createConfig({
