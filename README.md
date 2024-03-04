@@ -40,3 +40,11 @@ npm i
 ```bash
 npm start
 ```
+
+## Control Flow
+
+![Alt text](https://github.com/gerceboss/OpVoyage/blob/master/assets/3.png?raw=true)
+
+## Architecture for scaling the solution
+
+![Alt text](https://github.com/gerceboss/OpVoyage/blob/master/assets/4.png?raw=true)
